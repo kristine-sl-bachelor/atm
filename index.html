@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang = 'en' ng-app = 'app'>
+
+  <head>
+
+    <title>ATM</title>
+    <meta charset = 'UTF-8' />
+    <link rel = 'stylesheet' type = 'text/css' href = 'main.css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  </head>
+
+  <body ng-controller = 'AtmController as atm' ng-cloak>
+
+    <div class = 'Atm'>
+        <header class = 'Atm-header'>
+            <h1>ATM</h1>
+        </header>
+
+        <div class = 'Atm-body'>
+
+            <div class = 'Atm-output'>
+                <div class = 'Atm-screen'>
+                    <div class = 'Screen'>{{ atm.onScreenText }}</div>
+                </div>
+                <div class = 'Atm-money'></div>
+            </div>
+
+            <div class = 'Atm-input'>
+                <div class = 'Atm-card' ng-click = 'atm.insertCard() '></div>
+                <i class = 'Atm-icon fa fa-credit-card-alt fa-2x'></i>
+                <div class = 'Atm-keypad'>
+                    <div class = 'Keypad'>
+                        <div class = 'Keypad-numeric'>
+                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 1 ) '>1</div>
+                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 2 ) '>2</div>
+                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 3 ) '>3</div>
+                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 4 ) '>4</div>
+                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 5 ) '>5</div>
+                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 6 ) '>6</div>
+                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 7 ) '>7</div>
+                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 8 ) '>8</div>
+                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 9 ) '>9</div>
+                        </div>
+                        <div class = 'Keypad-confirmation'>
+                            <div class = 'Keypad-key Keypad-key--confirm'>Yes</div>
+                            <div class = 'Keypad-key Keypad-key--cancel'>No</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src = 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js'></script>
+    <script src = 'assets/js/app.js'></script>
+
+  </body>
+</html>

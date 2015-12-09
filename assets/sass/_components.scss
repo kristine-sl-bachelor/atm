@@ -1,0 +1,119 @@
+.Atm {
+    width: map-get( $layout, 'atm-width' );
+    height: map-get( $layout, 'atm-height' );
+    background: map-get( $colors, 'atm-body' );
+    border-radius: 20px;
+    overflow: hidden;
+
+    &-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: map-get( $layout, 'atm-header-height' );
+        background: map-get( $colors, 'atm-shade' );
+    }
+
+    &-body {
+        display: flex;
+        padding: map-get( $layout, 'spacing' );
+        height: map-get( $layout, 'atm-height' ) - map-get( $layout, 'atm-header-height' );
+    }
+
+    &-output {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: map-get( $layout, 'atm-width' ) * map-get( $constants, 'golden-ratio' );
+    }
+
+    &-input {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: map-get( $layout, 'atm-width' ) * ( 1 - map-get( $constants, 'golden-ratio' ) );
+        margin-left: map-get( $layout, 'spacing' );
+    }
+
+    &-screen {
+        height: map-get( $layout, 'atm-height' ) - map-get( $layout, 'atm-header-height' ) - map-get( $layout, 'atm-money-height' ) - map-get( $layout, 'spacing' ) * 3;
+        width: 100%;
+    }
+
+    &-money {
+        margin-top: map-get( $layout, 'spacing' );
+        height: map-get( $layout, 'atm-money-height' );
+        width: 100% * map-get( $constants, 'golden-ratio' );
+        background: map-get( $colors, 'atm-shade' );
+        border-bottom: 3px solid map-get( $colors, 'atm-card' ); 
+    }
+
+    &-card {
+        height: map-get( $layout, 'atm-card-height' );
+        width: 100% * ( 1 - map-get( $constants, 'golden-ratio' ) );
+        background: map-get( $colors, 'atm-card' );
+        cursor: pointer;
+    }
+
+    &-icon {
+        color: map-get( $colors, 'atm-highlight'); 
+        margin-top: map-get( $layout, 'spacing' ) / 2; 
+    }
+
+    &-keypad {
+        margin-top: map-get( $layout, 'spacing' );
+        background: map-get( $colors, 'atm-shade' );
+        padding: map-get( $layout, 'spacing' );
+        height: map-get( $layout, 'atm-height' ) - map-get( $layout, 'atm-header-height' ) - map-get( $layout, 'atm-card-height' ) - map-get( $layout, 'spacing' ) * 3 - map-get( $layout, 'atm-icon-size');
+        width: 80%;
+        display: flex; 
+        justify-content: center;
+    }
+}
+
+.Screen {
+    height: 100%;
+    border-radius: 10px;
+    background-color: map-get( $colors, 'screen' );
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    font-size: 25px; 
+}
+
+.Keypad {
+    height: 100%;
+    width: 100%; 
+    background-color: map-get( $colors, 'keypad-body' );
+    padding: map-get( $layout, 'keypad-spacing'); 
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;    
+
+    &-numeric, &-confirmation {
+        display: flex; 
+        flex-wrap: wrap; 
+    }
+
+    &-key {
+
+        height: map-get( $layout, 'keypad-key-size'); 
+        width: map-get( $layout, 'keypad-key-size'); 
+        border: 1px solid map-get( $colors, 'atm-shade');
+        border-radius: 5px; 
+        margin: map-get( $layout, 'keypad-spacing' ); 
+        display: flex; 
+        align-items: center;
+        justify-content: center;
+        font-weight: 600; 
+        cursor: pointer; 
+
+        &--confirm {
+            background: map-get( $colors, 'keypad-confirm'); 
+        }
+
+        &--cancel {
+            background: map-get( $colors, 'keypad-cancel'); 
+        }
+    }
+}

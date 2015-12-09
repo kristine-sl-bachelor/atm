@@ -1,0 +1,27 @@
+$constants: (
+    'golden-ratio': 0.618
+);
+
+$colors: (
+    'background': #1abc9c,
+    'atm-body': #34495e,
+    'atm-shade': #2c3e50,
+    'atm-highlight': #ecf0f1,
+    'atm-card': #11181f,
+    'screen': #3498db,
+    'keypad-body': #95a5a6,
+    'keypad-confirm': #40d47e,
+    'keypad-cancel': #e74c3c
+);
+
+$layout: (
+    'spacing': 40px,
+    'atm-width': 960px,
+    'atm-height': 650px,
+    'atm-header-height': 150px,
+    'atm-money-height': 40px,
+    'atm-card-height': 10px,
+    'atm-icon-size': 50px,
+    'keypad-key-size': 40px,
+    'keypad-spacing': 7px
+);

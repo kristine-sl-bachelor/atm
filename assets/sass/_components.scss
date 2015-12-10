@@ -71,24 +71,73 @@
 }
 
 .Screen {
+    position: relative;
+    overflow: hidden;
     height: 100%;
     border-radius: 10px;
     background-color: map-get( $colors, 'screen' );
     display: flex; 
-    align-items: center;
-    justify-content: center;
-    font-size: 25px; 
+    color: map-get( $colors, 'screen-highlight' ); 
+    font-weight: 400;
+
+    &.is-interactive {
+        .Screen-description {
+            margin-right: 100% * ( 1 - map-get( $constants, 'golden-ratio' ) );
+        }
+        .Screen-menu {
+            right: 0;
+        }
+    }
+
+    &-description {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%; 
+        padding: map-get( $layout, 'spacing' );
+        font-size: 20px;  
+        transition: margin-right 0.2s;
+    }
+
+    &-menu {
+        position: absolute;
+        right: -( 100% * ( 1 - map-get( $constants, 'golden-ratio' ) ) );
+        width: 100% * ( 1 - map-get( $constants, 'golden-ratio' ) );
+        height: 100%; 
+        display: flex; 
+        flex-direction: column;
+        justify-content: center;
+        font-size: 14px;
+        transition: right 0.2s;
+
+        &-item {
+            height: 50px; 
+            width: 100%; 
+            background: map-get( $colors, 'screen-shade' ); 
+            border: 10px solid map-get( $colors, 'screen' ); 
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+    }
 }
 
 .Keypad {
     height: 100%;
     width: 100%; 
-    background-color: map-get( $colors, 'keypad-body' );
     padding: map-get( $layout, 'keypad-spacing'); 
     display: flex; 
     flex-direction: column;
     align-items: center;
     justify-content: center;    
+    background: map-get( $colors, 'keypad-body' );
+
+    &-confirmation {
+        width: 100%;
+        justify-content: space-between;
+    }
 
     &-numeric, &-confirmation {
         display: flex; 
@@ -99,7 +148,6 @@
 
         height: map-get( $layout, 'keypad-key-size'); 
         width: map-get( $layout, 'keypad-key-size'); 
-        border: 1px solid map-get( $colors, 'atm-shade');
         border-radius: 5px; 
         margin: map-get( $layout, 'keypad-spacing' ); 
         display: flex; 
@@ -107,13 +155,18 @@
         justify-content: center;
         font-weight: 600; 
         cursor: pointer; 
+        background: map-get( $colors, 'keypad-highlight' );
+        font-size: 22px;
+        color: map-get( $colors, 'atm-body' );
 
         &--confirm {
-            background: map-get( $colors, 'keypad-confirm'); 
+            background: map-get( $colors, 'keypad-confirm');
+            color: white; 
         }
 
         &--cancel {
             background: map-get( $colors, 'keypad-cancel'); 
+            color: white;
         }
     }
 }

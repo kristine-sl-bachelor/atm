@@ -17,6 +17,8 @@ body {
     justify-content: center;
     background-color: map-get( $colors, 'background' );
     font-family: 'Avenir Next', Helvetica, sans-serif;
+    letter-spacing: 1px; 
+
 }
 
 h1 {
@@ -24,4 +26,8 @@ h1 {
     color: map-get( $colors, 'atm-highlight' );
     font-weight: 800;
     font-size: 70px
+}
+
+[ng-cloak] {
+  display: none !important;
 }

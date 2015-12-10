@@ -10,9 +10,9 @@
 
   </head>
 
-  <body ng-controller = 'AtmController as atm' ng-cloak>
+  <body>
 
-    <div class = 'Atm'>
+    <div class = 'Atm' ng-controller = 'AtmController as atm' ng-cloak>
         <header class = 'Atm-header'>
             <h1>ATM</h1>
         </header>
@@ -21,14 +21,24 @@
 
             <div class = 'Atm-output'>
                 <div class = 'Atm-screen'>
-                    <div class = 'Screen'>{{ atm.onScreenText }}</div>
+                    <div class = 'Screen' ng-class="{ 'is-interactive': atm.interactive }">
+                        <div class="Screen-description">{{ atm.onScreenText }}</div>
+                        <div class="Screen-menu">
+                            <div class="Screen-menu-item">Menu item</div>
+                            <div class="Screen-menu-item">Menu item</div>
+                            <div class="Screen-menu-item">Menu item</div>
+                            <div class="Screen-menu-item">Menu item</div>
+                            <div class="Screen-menu-item">Menu item</div>
+                            <div class="Screen-menu-item">Menu item</div>
+                        </div>
+                    </div>
                 </div>
                 <div class = 'Atm-money'></div>
             </div>
 
             <div class = 'Atm-input'>
                 <div class = 'Atm-card' ng-click = 'atm.insertCard() '></div>
-                <i class = 'Atm-icon fa fa-credit-card-alt fa-2x'></i>
+                <span class = 'Atm-icon fa fa-credit-card-alt fa-2x'></span>
                 <div class = 'Atm-keypad'>
                     <div class = 'Keypad'>
                         <div class = 'Keypad-numeric'>
@@ -43,8 +53,8 @@
                             <div class = 'Keypad-key' ng-click = ' atm.numberKey( 9 ) '>9</div>
                         </div>
                         <div class = 'Keypad-confirmation'>
-                            <div class = 'Keypad-key Keypad-key--confirm'>Yes</div>
-                            <div class = 'Keypad-key Keypad-key--cancel'>No</div>
+                            <div class = 'Keypad-key Keypad-key--confirm'><span class = 'fa fa-check'></span></div>
+                            <div class = 'Keypad-key Keypad-key--cancel'><span class = 'fa fa-times'></span></div>
                         </div>
                     </div>
                 </div>

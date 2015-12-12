@@ -99,6 +99,7 @@ angular.module( 'app', [] )
 
 			vm.cardEjected = true; 
 			vm.interactive = false; 
+			vm.onScreenText = static; 
 		}
 
 		vm.numberKey = function( number ) {

@@ -39,8 +39,16 @@
         width: 100%;
     }
 
+    &-receipt {
+        height: map-get( $layout, 'atm-receipt-height'); 
+        width: map-get( $layout, 'atm-receipt-width' ); 
+        background: map-get( $colors, 'atm-shade');
+        border-bottom: 1px solid map-get( $colors, 'atm-card' ); 
+        margin-top: map-get( $layout, 'spacing' ) / 2; 
+    }
+
     &-money {
-        margin-top: map-get( $layout, 'spacing' );
+        margin-top: map-get( $layout, 'spacing' ) / 2;
         height: map-get( $layout, 'atm-money-height' );
         width: 100% * map-get( $constants, 'golden-ratio' );
         background: map-get( $colors, 'atm-shade' );
@@ -71,55 +79,141 @@
 }
 
 .Screen {
-    position: relative;
     overflow: hidden;
     height: 100%;
     border-radius: 10px;
-    background-color: map-get( $colors, 'screen' );
-    display: flex; 
-    color: map-get( $colors, 'screen-highlight' ); 
+    background-color: map-get( $colors, 'screen-shade' );
+    color: map-get( $colors, 'screen-text' ); 
     font-weight: 400;
 
     &.is-interactive {
-        .Screen-description {
-            margin-right: 100% * ( 1 - map-get( $constants, 'golden-ratio' ) );
+        .Screen-start-description {
+            /**margin-right: 100% * ( 1 - map-get( $constants, 'golden-ratio' ) );**/
+            margin-right: 50%; 
         }
-        .Screen-menu {
+        .Screen-start-menu {
             right: 0;
         }
     }
 
-    &-description {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%; 
-        padding: map-get( $layout, 'spacing' );
-        font-size: 20px;  
-        transition: margin-right 0.2s;
+    &-start {
+
+        height: 100%;
+        position: relative;
+        display: flex; 
+        
+        &-description {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center; 
+            width: 100%; 
+            padding: map-get( $layout, 'spacing' );
+            font-size: 20px;  
+            transition: margin-right 0.2s;
+            position: relative; 
+        }
+
+        &-eject {
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            position: absolute; 
+            height: 30px; 
+            background: map-get( $colors, 'screen' ); 
+            bottom: 30px; 
+            font-size: 14px; 
+            text-transform: uppercase; 
+            cursor: pointer;
+            padding: 10px; 
+
+            &-icon {
+                margin-right: 10px; 
+            }
+
+            &.not-ejectable {
+                display: none; 
+            }
+        }
+
+        &-menu {
+            position: absolute;
+            /**right: -( 100% * ( 1 - map-get( $constants, 'golden-ratio' ) ) );
+            width: 100% * ( 1 - map-get( $constants, 'golden-ratio' ) );**/
+            right: -50%; 
+            width: 50%; 
+            height: 100%; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center;
+            font-size: 14px;
+            transition: right 0.2s;
+            padding: 20px 30px; 
+
+            &-item {
+                height: 50px; 
+                width: 100%; 
+                background: map-get( $colors, 'screen' ); 
+                /**border: 10px solid map-get( $colors, 'screen' );**/
+                margin: 5px 0; 
+                display: flex; 
+                justify-content: center;
+                text-transform: uppercase; 
+                align-items: center;
+                cursor: pointer;
+
+                &:hover {
+                    background: map-get( $colors, 'screen-highlight' );   
+                }
+            }
+        }
     }
 
-    &-menu {
-        position: absolute;
-        right: -( 100% * ( 1 - map-get( $constants, 'golden-ratio' ) ) );
-        width: 100% * ( 1 - map-get( $constants, 'golden-ratio' ) );
-        height: 100%; 
-        display: flex; 
-        flex-direction: column;
-        justify-content: center;
-        font-size: 14px;
-        transition: right 0.2s;
+    &-cancelPayment {
 
-        &-item {
-            height: 50px; 
-            width: 100%; 
-            background: map-get( $colors, 'screen-shade' ); 
-            border: 10px solid map-get( $colors, 'screen' ); 
+        padding: 20px; 
+        position: relative; 
+        height: 100%; 
+
+        &-header {
+            text-align: center; 
+            font-weight: 600; 
+            margin-bottom: 30px; 
+        }
+
+        &-noPayments {
+            height: 90%; 
             display: flex; 
-            justify-content: center;
-            align-items: center;
-            text-transform: uppercase;
-            cursor: pointer;
+            justify-content: center; 
+            align-items: center;  
+        }
+
+        &-payment {
+            background: map-get( $colors, 'screen' ); 
+            margin: 10px; 
+            padding: 10px; 
+            display: flex;
+            align-items: center; 
+
+            &-accounts {
+                margin: 10px; 
+                width: 200px; 
+            }
+
+            &-amount {
+                width: 200px;
+                display: flex; 
+                justify-content: center; 
+                align-items: center;   
+            }
+
+            &-cancel {
+                font-size: 22px; 
+
+                &:hover {
+                    color: map-get( $colors, 'keypad-cancel' ); 
+                }
+            }
         }
     }
 }
@@ -168,5 +262,163 @@
             background: map-get( $colors, 'keypad-cancel'); 
             color: white;
         }
+    }
+}
+
+.Receipts {
+    display: flex; 
+    align-items: flex-end;
+    position: absolute; 
+    bottom: 0; 
+    height: 40px; 
+    width: 100%;
+    pointer-events: auto;
+
+    &-item {
+        position: absolute;
+        bottom: -340px;
+        background: white; 
+        width: map-get( $layout, 'atm-receipt-width' ); 
+        height: 400px; 
+        margin: 10px 10px 0px 10px; 
+        padding: 10px 5px; 
+        transition: bottom 0.4s, left 0.4s;
+        cursor: pointer;
+        text-align: center; 
+
+        @for $i from 0 through 5 {
+            &:nth-child( #{ $i + 1 } ) {
+                left: ( map-get( $layout, 'atm-receipt-width' ) + 20px ) * $i;
+            }
+        }
+
+        &:not( .is-unclickable ):hover {
+            bottom: -330px;
+        }
+
+        &.is-active {
+            bottom: 140px !important;
+            left: 20px
+        }
+
+        &-date {
+            font-size: 14px; 
+            color: map-get( $colors, 'keypad-body' ); 
+            margin-bottom: 5px; 
+        }
+
+        &-description {
+            height: 260px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border-top: 1px dotted map-get( $colors, 'keypad-body' );; 
+            border-bottom: 1px dotted map-get( $colors, 'keypad-body' );;  
+            margin: 20px; 
+        }
+    }
+}
+
+.Card {
+    position: absolute;
+    right: 0;
+    transform: translate( -10px, 80px );
+    transform-origin: 50% 50%;
+    height: map-get( $layout, 'card-height' ); 
+    width: map-get( $layout, 'card-width' );  
+    background: map-get( $colors, 'card' ); 
+    border-radius: 10px; 
+    padding: 10px; 
+    color: white;
+    bottom: 0; 
+    transition: transform 0.2s;
+    pointer-events: auto;
+    cursor: pointer; 
+
+    &:hover {
+        transform: translate( -10px, 10px );
+    }
+
+    &-visa {
+        position: absolute; 
+        right: 0; 
+        margin-right: 10px; 
+    }
+
+    &-info {
+        height: 100%; 
+        display: flex; 
+        flex-direction: column;
+        justify-content: flex-end; 
+        align-items: flex-end;
+
+        &-number, &-date {
+            margin-bottom: 5px; 
+        }
+    }
+
+    &.is-inserted {
+        animation: insert 1.5s;
+        animation-fill-mode: forwards;
+    }
+
+    &.is-ejected {
+        animation: eject 0.5s; 
+        animation-fill-mode: forwards;
+    }
+
+    &.is-taken {
+        animation: take 1s; 
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes insert {
+        50%  {
+            transform: translate( ( map-get( $layout, 'card-width' ) / 2 ) + ( map-get( $layout, 'atm-width' ) / 2 ) - ( map-get( $layout, 'atm-width' ) * ( 1 - map-get( $constants, 'golden-ratio' ) ) ) / 2 - map-get( $layout, 'spacing' ) / 2 + 3px, 0 ) rotate( 90deg );
+            bottom: 300px; 
+            right: 50%;
+        }
+        100% {
+            transform: translate( ( map-get( $layout, 'card-width' ) / 2 ) + ( map-get( $layout, 'atm-width' ) / 2 ) - ( map-get( $layout, 'atm-width' ) * ( 1 - map-get( $constants, 'golden-ratio' ) ) ) / 2 - map-get( $layout, 'spacing' ) / 2 + 3px, 0 ) rotate( 90deg );
+            bottom: 700px;
+            right: 50%;
+        }
+    }
+
+    @keyframes eject {
+        0% {
+            transform: translate( ( map-get( $layout, 'card-width' ) / 2 ) + ( map-get( $layout, 'atm-width' ) / 2 ) - ( map-get( $layout, 'atm-width' ) * ( 1 - map-get( $constants, 'golden-ratio' ) ) ) / 2 - map-get( $layout, 'spacing' ) / 2 + 3px, 0 ) rotate( 90deg );
+            bottom: 700px;
+            right: 50%;
+        }
+        100% {
+            transform: translate( ( map-get( $layout, 'card-width' ) / 2 ) + ( map-get( $layout, 'atm-width' ) / 2 ) - ( map-get( $layout, 'atm-width' ) * ( 1 - map-get( $constants, 'golden-ratio' ) ) ) / 2 - map-get( $layout, 'spacing' ) / 2 + 3px, 0 ) rotate( 90deg );
+            bottom: 520px;
+            right: 50%;
+        }
+    }
+
+    @keyframes take {
+
+        0% {
+            transform: translate( ( map-get( $layout, 'card-width' ) / 2 ) + ( map-get( $layout, 'atm-width' ) / 2 ) - ( map-get( $layout, 'atm-width' ) * ( 1 - map-get( $constants, 'golden-ratio' ) ) ) / 2 - map-get( $layout, 'spacing' ) / 2 + 3px, 0 ) rotate( 90deg );
+            bottom: 520px;
+            right: 50%;
+        }
+        50% {
+            transform: translate( ( map-get( $layout, 'card-width' ) / 2 ) + ( map-get( $layout, 'atm-width' ) / 2 ) - ( map-get( $layout, 'atm-width' ) * ( 1 - map-get( $constants, 'golden-ratio' ) ) ) / 2 - map-get( $layout, 'spacing' ) / 2 + 3px, 0 ) rotate( 90deg );
+            bottom: 300px; 
+            right: 50%;
+        }
+        100% {}
+    }
+
+    &-wrapper {
+        pointer-events: none;
+        overflow: hidden;
+        position: absolute;
+        width: 100%;
+        height: calc( 50% + #{ ( map-get( $layout, 'atm-height' ) / 2 ) - map-get( $layout, 'atm-header-height' ) - map-get( $layout, 'spacing' ) - 3px } );
+        top: calc( 50% - #{ ( map-get( $layout, 'atm-height' ) / 2 ) - map-get( $layout, 'atm-header-height' ) - map-get( $layout, 'spacing' ) - 3px } );
     }
 }

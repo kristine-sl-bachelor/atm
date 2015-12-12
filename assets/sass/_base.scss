@@ -15,10 +15,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     background-color: map-get( $colors, 'background' );
     font-family: 'Avenir Next', Helvetica, sans-serif;
     letter-spacing: 1px; 
-
+    margin: 0;
 }
 
 h1 {

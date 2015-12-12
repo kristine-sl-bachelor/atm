@@ -6,33 +6,58 @@
     <title>ATM</title>
     <meta charset = 'UTF-8' />
     <link rel = 'stylesheet' type = 'text/css' href = 'main.css'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
 
   </head>
 
-  <body>
+  <body ng-controller = 'AtmController as atm' ng-cloak>
 
-    <div class = 'Atm' ng-controller = 'AtmController as atm' ng-cloak>
+    <div class = 'Atm'>
+
         <header class = 'Atm-header'>
             <h1>ATM</h1>
         </header>
 
         <div class = 'Atm-body'>
-
             <div class = 'Atm-output'>
                 <div class = 'Atm-screen'>
-                    <div class = 'Screen' ng-class="{ 'is-interactive': atm.interactive }">
-                        <div class="Screen-description">{{ atm.onScreenText }}</div>
-                        <div class="Screen-menu">
-                            <div class="Screen-menu-item">Menu item</div>
-                            <div class="Screen-menu-item">Menu item</div>
-                            <div class="Screen-menu-item">Menu item</div>
-                            <div class="Screen-menu-item">Menu item</div>
-                            <div class="Screen-menu-item">Menu item</div>
-                            <div class="Screen-menu-item">Menu item</div>
+                    <div class = 'Screen' ng-class = "{ 'is-interactive': atm.interactive }">
+                        <div class = 'Screen-start' ng-show = ' atm.currentAction == atm.actions.main '>
+                            <div class = 'Screen-start-description'>
+                                {{ atm.onScreenText }}
+                                <div class="Screen-start-eject" ng-class = "{ 'not-ejectable': ! atm.interactive }" ng-click = 'atm.ejectCard()'>
+                                    <span class = "Screen-start-eject-icon fa fa-credit-card-alt"></span>
+                                    Eject card
+                                </div>
+                            </div>
+                            <div class="Screen-start-menu">
+                                <div class='Screen-start-menu-item' ng-click = ' atm.cancelPayment() '>Cancel payment</div>
+                                <div class='Screen-start-menu-item' ng-click = ' atm.buyVisaGiftCard() '>Buy visa gift card</div>
+                                <div class='Screen-start-menu-item' ng-click = ' atm.changeInfo() '>Change info</div>
+                                <div class='Screen-start-menu-item' ng-click = ' atm.newCard() '>New card  </div>
+                                <div class='Screen-start-menu-item' ng-click = ' atm.payBill() '>Pay a bill</div>
+                                <div class='Screen-start-menu-item' ng-click = ' atm.withdrawCash() '>Withdraw cash</div>
+                                <div class='Screen-start-menu-item' ng-click = ' atm.transferCash() '>Transfer cash</div>
+                            </div>
+                        </div>
+                        <div class="Screen-cancelPayment" ng-show = 'atm.currentAction == atm.actions.cancelPayment'>
+                            <div class="Screen-cancelPayment-header">Cancel payment</div>
+                            <div class="Screen-cancelPayment-noPayments" ng-show = 'atm.payments.length == 0'>No payments found</div>
+                            <div class="Screen-cancelPayment-payment" ng-repeat = 'payment in atm.payments'>
+                                <div class="Screen-cancelPayment-payment-accounts">
+                                    <div>To: {{ payment.to }}</div>
+                                    <div>From: {{ payment.from }}</div>
+                                </div>
+                                <div class = 'Screen-cancelPayment-payment-amount'>{{ payment.amount }},- NOK</div>
+                                <div class = 'Screen-cancelPayment-payment-cancel'>
+                                    <div class = 'fa fa-times'></div>
+                                </div>
+                            </div>
+                            <div class="Screen-back" ng-click = 'atm.currentAction = atm.actions.main'>Back</div>
                         </div>
                     </div>
                 </div>
+                <div class='Atm-receipt'></div>
                 <div class = 'Atm-money'></div>
             </div>
 
@@ -64,7 +89,27 @@
 
     </div>
 
-    <script src = 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js'></script>
+    <div class="Card-wrapper">
+
+        <div class = 'Receipts' ng-controller = 'ReceiptsController as receipts'>
+            <div class="Receipts-item" ng-repeat="receipt in receipts.items" ng-class = "{ 'is-active': receipt.active, 'is-unclickable': ! receipt.clickable }" ng-click = 'receipts.toggleActive( $index )'>
+                <div class="Receipts-item-date">{{ receipts.formatDate( receipt.datetime ) }}</div>
+                <b>Transaction</b>
+                <div class="Receipts-item-description">{{ receipt.description }}</div>
+                Have a nice day! 
+            </div>
+        </div>
+        <div class = "Card" ng-controller = "CardController as card" ng-class = "{ 'is-inserted': atm.cardInserted, 'is-ejected': atm.cardEjected, 'is-taken': atm.cardTaken }" ng-click = 'atm.toggleCard()'>
+            <span class='Card-visa fa fa-cc-visa fa-2x'></span>
+            <div class="Card-info">
+                <div class="Card-info-number">{{ card.cardNumber }}</div>
+                <div class="Card-info-date">{{ card.month }} / {{ card.year }}</div>
+            </div>
+        </div>
+    </div>
+
+    <script src = 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.js'></script>
+    <script src = 'node_modules/moment/moment.js'></script>
     <script src = 'assets/js/app.js'></script>
 
   </body>

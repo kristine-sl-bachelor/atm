@@ -12,9 +12,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   background-color: #1abc9c;
   font-family: 'Avenir Next', Helvetica, sans-serif;
-  letter-spacing: 1px; }
+  letter-spacing: 1px;
+  margin: 0; }
 
 h1 {
   margin: 0;
@@ -55,8 +57,14 @@ h1 {
   .Atm-screen {
     height: 340px;
     width: 100%; }
+  .Atm-receipt {
+    height: 8px;
+    width: 200px;
+    background: #2c3e50;
+    border-bottom: 1px solid #11181f;
+    margin-top: 20px; }
   .Atm-money {
-    margin-top: 40px;
+    margin-top: 20px;
     height: 40px;
     width: 61.8%;
     background: #2c3e50;
@@ -79,46 +87,104 @@ h1 {
     justify-content: center; }
 
 .Screen {
-  position: relative;
   overflow: hidden;
   height: 100%;
   border-radius: 10px;
-  background-color: #3498db;
-  display: flex;
+  background-color: #2980b9;
   color: white;
   font-weight: 400; }
-  .Screen.is-interactive .Screen-description {
-    margin-right: 38.2%; }
-  .Screen.is-interactive .Screen-menu {
+  .Screen.is-interactive .Screen-start-description {
+    /**margin-right: 100% * ( 1 - map-get( $constants, 'golden-ratio' ) );**/
+    margin-right: 50%; }
+  .Screen.is-interactive .Screen-start-menu {
     right: 0; }
-  .Screen-description {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 40px;
-    font-size: 20px;
-    transition: margin-right 0.2s; }
-  .Screen-menu {
-    position: absolute;
-    right: -38.2%;
-    width: 38.2%;
+  .Screen-start {
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: 14px;
-    transition: right 0.2s; }
-    .Screen-menu-item {
-      height: 50px;
+    position: relative;
+    display: flex; }
+    .Screen-start-description {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
       width: 100%;
-      background: #2980b9;
-      border: 10px solid #3498db;
+      padding: 40px;
+      font-size: 20px;
+      transition: margin-right 0.2s;
+      position: relative; }
+    .Screen-start-eject {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      height: 30px;
+      background: #3498db;
+      bottom: 30px;
+      font-size: 14px;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 10px; }
+      .Screen-start-eject-icon {
+        margin-right: 10px; }
+      .Screen-start-eject.not-ejectable {
+        display: none; }
+    .Screen-start-menu {
+      position: absolute;
+      /**right: -( 100% * ( 1 - map-get( $constants, 'golden-ratio' ) ) );
+            width: 100% * ( 1 - map-get( $constants, 'golden-ratio' ) );**/
+      right: -50%;
+      width: 50%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 14px;
+      transition: right 0.2s;
+      padding: 20px 30px; }
+      .Screen-start-menu-item {
+        height: 50px;
+        width: 100%;
+        background: #3498db;
+        /**border: 10px solid map-get( $colors, 'screen' );**/
+        margin: 5px 0;
+        display: flex;
+        justify-content: center;
+        text-transform: uppercase;
+        align-items: center;
+        cursor: pointer; }
+        .Screen-start-menu-item:hover {
+          background: #59abe3; }
+  .Screen-cancelPayment {
+    padding: 20px;
+    position: relative;
+    height: 100%; }
+    .Screen-cancelPayment-header {
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 30px; }
+    .Screen-cancelPayment-noPayments {
+      height: 90%;
       display: flex;
       justify-content: center;
-      align-items: center;
-      text-transform: uppercase;
-      cursor: pointer; }
+      align-items: center; }
+    .Screen-cancelPayment-payment {
+      background: #3498db;
+      margin: 10px;
+      padding: 10px;
+      display: flex;
+      align-items: center; }
+      .Screen-cancelPayment-payment-accounts {
+        margin: 10px;
+        width: 200px; }
+      .Screen-cancelPayment-payment-amount {
+        width: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+      .Screen-cancelPayment-payment-cancel {
+        font-size: 22px; }
+        .Screen-cancelPayment-payment-cancel:hover {
+          color: #e24D57; }
 
 .Keypad {
   height: 100%;
@@ -154,3 +220,129 @@ h1 {
     .Keypad-key--cancel {
       background: #e24D57;
       color: white; }
+
+.Receipts {
+  display: flex;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 0;
+  height: 40px;
+  width: 100%;
+  pointer-events: auto; }
+  .Receipts-item {
+    position: absolute;
+    bottom: -340px;
+    background: white;
+    width: 200px;
+    height: 400px;
+    margin: 10px 10px 0px 10px;
+    padding: 10px 5px;
+    transition: bottom 0.4s, left 0.4s;
+    cursor: pointer;
+    text-align: center; }
+    .Receipts-item:nth-child(1) {
+      left: 0px; }
+    .Receipts-item:nth-child(2) {
+      left: 220px; }
+    .Receipts-item:nth-child(3) {
+      left: 440px; }
+    .Receipts-item:nth-child(4) {
+      left: 660px; }
+    .Receipts-item:nth-child(5) {
+      left: 880px; }
+    .Receipts-item:nth-child(6) {
+      left: 1100px; }
+    .Receipts-item:not(.is-unclickable):hover {
+      bottom: -330px; }
+    .Receipts-item.is-active {
+      bottom: 140px !important;
+      left: 20px; }
+    .Receipts-item-date {
+      font-size: 14px;
+      color: #6c7a89;
+      margin-bottom: 5px; }
+    .Receipts-item-description {
+      height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top: 1px dotted #6c7a89;
+      border-bottom: 1px dotted #6c7a89;
+      margin: 20px; }
+
+.Card {
+  position: absolute;
+  right: 0;
+  transform: translate(-10px, 80px);
+  transform-origin: 50% 50%;
+  height: 120px;
+  width: 200px;
+  background: #003171;
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  bottom: 0;
+  transition: transform 0.2s;
+  pointer-events: auto;
+  cursor: pointer; }
+  .Card:hover {
+    transform: translate(-10px, 10px); }
+  .Card-visa {
+    position: absolute;
+    right: 0;
+    margin-right: 10px; }
+  .Card-info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end; }
+    .Card-info-number, .Card-info-date {
+      margin-bottom: 5px; }
+  .Card.is-inserted {
+    animation: insert 1.5s;
+    animation-fill-mode: forwards; }
+  .Card.is-ejected {
+    animation: eject 0.5s;
+    animation-fill-mode: forwards; }
+  .Card.is-taken {
+    animation: take 1s;
+    animation-fill-mode: forwards; }
+
+@keyframes insert {
+  50% {
+    transform: translate(379.64px, 0) rotate(90deg);
+    bottom: 300px;
+    right: 50%; }
+  100% {
+    transform: translate(379.64px, 0) rotate(90deg);
+    bottom: 700px;
+    right: 50%; } }
+
+@keyframes eject {
+  0% {
+    transform: translate(379.64px, 0) rotate(90deg);
+    bottom: 700px;
+    right: 50%; }
+  100% {
+    transform: translate(379.64px, 0) rotate(90deg);
+    bottom: 520px;
+    right: 50%; } }
+
+@keyframes take {
+  0% {
+    transform: translate(379.64px, 0) rotate(90deg);
+    bottom: 520px;
+    right: 50%; }
+  50% {
+    transform: translate(379.64px, 0) rotate(90deg);
+    bottom: 300px;
+    right: 50%; }
+  100% { } }
+  .Card-wrapper {
+    pointer-events: none;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: calc( 50% + 132px);
+    top: calc( 50% - 132px); }

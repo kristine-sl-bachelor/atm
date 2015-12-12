@@ -10,11 +10,13 @@ $colors: (
     'atm-card': #11181f,
     'screen': #3498db,
     'screen-shade': #2980b9,
-    'screen-highlight': white, 
+    'screen-highlight': #59abe3, 
+    'screen-text': white, 
     'keypad-body': #6c7a89,
     'keypad-confirm': #46c67B,
     'keypad-cancel': #e24D57,
-    'keypad-highlight': #8f9dac
+    'keypad-highlight': #8f9dac,
+    'card': #003171
 );
 
 $layout: (
@@ -22,9 +24,14 @@ $layout: (
     'atm-width': 960px,
     'atm-height': 650px,
     'atm-header-height': 150px,
+    'atm-receipt-height': 8px,
+    'atm-receipt-width': 200px,
     'atm-money-height': 40px,
     'atm-card-height': 10px,
     'atm-icon-size': 50px,
     'keypad-key-size': 40px,
-    'keypad-spacing': 7px
+    'keypad-spacing': 7px,
+    'card-height': 120px, 
+    'card-width': 200px
+
 );

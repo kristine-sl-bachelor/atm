@@ -1,0 +1,86 @@
+.Money {
+	display: flex; 
+	flex-direction: column-reverse;
+	justify-content: flex-end;
+	height: 100%; 
+	top: 0; 
+	position: absolute; 
+
+	&-wrapper {
+		display: flex; 
+		flex-direction: column-reverse;
+		justify-content: flex-end;
+		margin-bottom: 70px; 
+	}
+
+	&-bill{
+		width: map-get( $layout, 'money-width' ); 
+		height: map-get( $layout, 'money-height' ); 
+		margin: 30px;  
+		margin-bottom: -200px; 
+		border: map-get( $layout, 'money-spacing' ) solid white;
+		border-left: map-get( $layout, 'money-left' ) solid white; 
+		position: relative; 
+		letter-spacing: 0; 
+		box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.15);
+	}
+
+	&-serial {
+		position: absolute; 
+		left: -( map-get( $layout, 'money-left' ) ) + map-get( $layout, 'money-spacing' );  
+		color: black; 
+		letter-spacing: 2px;
+		font-size: 13px; 
+	}
+
+	&-amount {
+		position: absolute; 
+		width: map-get( $layout, 'money-left' ); 
+		left: -( map-get( $layout, 'money-left' ) ) + map-get( $layout, 'money-spacing' ); 
+		bottom: -10px;
+		font-weight: 600; 
+		font-size: 32px; 
+	}
+
+	&-person {
+		position: absolute; 
+		right: map-get( $layout, 'money-security-width' ) + ( map-get( $layout, 'money-spacing' ) * 2 ); 
+		bottom: -20px; 
+		font-size: 8em !important; 
+		color: white; 
+	}
+
+	&-security {
+		position: absolute; 
+		height: map-get( $layout, 'money-height' ); 
+		width: map-get( $layout, 'money-security-width' ); 
+		background: map-get( $colors, 'money-security' ); 
+		right: map-get( $layout, 'money-spacing' ); 
+		bottom: -( map-get( $layout, 'money-spacing' ) ); 
+	}
+
+	&-fifty {	
+		background: map-get( $colors, 'money-50' ); 
+		color: map-get( $colors, 'money-50' ); 
+	}
+
+	&-oneHundred {
+		background: map-get( $colors, 'money-100' ); 
+		color: map-get( $colors, 'money-100' ); 
+	}
+
+	&-twoHundred {
+		background: map-get( $colors, 'money-200' ); 
+		color: map-get( $colors, 'money-200' ); 
+	}
+
+	&-fiveHundred {
+		background: map-get( $colors, 'money-500' ); 
+		color: map-get( $colors, 'money-500' ); 
+	}
+
+	&-oneThousand {
+		background: map-get( $colors, 'money-1000' ); 
+		color: map-get( $colors, 'money-1000' ); 
+	}	
+}

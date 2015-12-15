@@ -66,7 +66,7 @@
                                 <div class="Screen-giftCard-description">Gift card will be sent to your registerred address</div>
                                 <div class="Screen-giftCard-details">
                                     <div>Amount:</div>
-                                    <div class="Screen-giftCard-amount">{{ atm.getKeypadNumbersAsString() }}</div>
+                                    <div class="Screen-input">{{ atm.getKeypadNumbersAsString() }}</div>
                                     <div class="Screen-giftCard-confirm Screen-button" ng-click = 'atm.confirm( atm.orderGiftCard )' ng-show = 'atm.numberKeysPressed.length > 0'>Confirm</div>
                                 </div>
                                 <div class="Screen-giftCard-info">Enter amount using keypad</div>
@@ -113,6 +113,20 @@
                                 <div class="fa fa-caret-right"></div>
                             </div>
                         </div>
+                        <div class="Screen-withdrawCash" ng-show = 'atm.currentAction == atm.actions.withdrawCash'>
+                            <div class="Screen-header">Enter amount you want to withdraw</div>
+                            <div class="Screen-withdrawCash-wrapper">
+                                <div class="Screen-input">{{ atm.getKeypadNumbersAsString() }}</div>
+                                <div class="Screen-withdrawCash-confirm Screen-button" ng-click = 'atm.withdraw()' ng-show = 'atm.numberKeysPressed.length > 0'>Confirm</div>                   
+                            </div>
+                            <div class="Screen-withdrawCash-error" ng-show = "atm.money.invalid">Invalid sum, cannot provide entire amount</div>
+                            <div class="Screen-withdrawCash-description" ng-show = "atm.money.invalid">Please enter new amount</div>
+                            <div class="Screen-withdrawCash-error" ng-show = "atm.money.noFunds">Not enough funds</div>
+                            <div class="Screen-button Screen-button--back" ng-click = 'atm.back()'>
+                                Back
+                                <div class="fa fa-caret-right"></div>
+                            </div>
+                        </div>
                         <div class="Screen-confirm" ng-show = 'atm.currentAction == atm.actions.confirm'>
                             <div class="Screen-confirm-description">Are you sure?</div>
                             <div class="Screen-confirm-item-wrapper">
@@ -144,6 +158,7 @@
                         </div>
                         <div class = 'Keypad-confirmation'>
                             <div class = 'Keypad-key Keypad-key--confirm'><span class = 'fa fa-check'></span></div>
+                            <div class = 'Keypad-key' ng-click = ' atm.addNumberKey( 0 ) '>0</div>
                             <div class = 'Keypad-key Keypad-key--cancel'><span class = 'fa fa-times'></span></div>
                         </div>
                     </div>
@@ -169,6 +184,49 @@
             <div class="Card-info">
                 <div class="Card-info-number">{{ card.cardNumber }}</div>
                 <div class="Card-info-date">{{ card.month }} / {{ card.year }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="Money">
+        <div class="Money-wrapper" ng-show = 'atm.money.oneThousand.length'>
+            <div class="Money-bill Money-oneThousand" ng-repeat = 'money in atm.money.oneThousand track by $index' ng-click = 'atm.money.oneThousand.shift()'>
+                <div class="Money-serial">10081248</div>
+                <div class="Money-amount">1000</div>
+                <span class = 'Money-person fa fa-user'></span>
+                <div class="Money-security"></div>
+            </div>
+        </div>
+        <div class="Money-wrapper" ng-show = 'atm.money.fiveHundred.length'>
+            <div class="Money-bill Money-fiveHundred" ng-repeat = 'money in atm.money.fiveHundred track by $index' ng-click = 'atm.money.fiveHundred.shift()'>
+                <div class="Money-serial">95762384</div>
+                <div class="Money-amount">500</div>
+                <span class = 'Money-person fa fa-user'></span>
+                <div class="Money-security"></div>
+            </div>
+        </div>
+        <div class="Money-wrapper" ng-show = 'atm.money.twoHundred.length'>
+            <div class="Money-bill Money-twoHundred" ng-repeat = 'money in atm.money.twoHundred track by $index' ng-click = 'atm.money.twoHundred.shift()'>
+                <div class="Money-serial">36432752</div>
+                <div class="Money-amount">200</div>
+                <span class = 'Money-person fa fa-user'></span>
+                <div class="Money-security"></div>
+            </div>
+        </div>
+        <div class="Money-wrapper" ng-show = 'atm.money.oneHundred.length'>
+            <div class="Money-bill Money-oneHundred" ng-repeat = 'money in atm.money.oneHundred track by $index' ng-click = 'atm.money.oneHundred.shift()'>
+                <div class="Money-serial">74622544</div>
+                <div class="Money-amount">100</div>
+                <span class = 'Money-person fa fa-user'></span>
+                <div class="Money-security"></div>
+            </div>
+        </div>
+        <div class="Money-wrapper" ng-show = 'atm.money.fifty.length'>
+            <div class="Money-bill Money-fifty" ng-repeat = 'money in atm.money.fifty track by $index' ng-click = 'atm.money.fifty.shift()'>
+                <div class="Money-serial">98723942</div>
+                <div class="Money-amount">50</div>
+                <span class = 'Money-person fa fa-user'></span>
+                <div class="Money-security"></div>
             </div>
         </div>
     </div>

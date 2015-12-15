@@ -54,6 +54,16 @@ angular.module( 'app', [] )
 			} ]
 		}
 
+		vm.money = {
+			fifty: [],
+			oneHundred: [], 
+			twoHundred: [], 
+			fiveHundred: [], 
+			oneThousand: [], 
+			invalid: false, 
+			noFunds: false
+		}
+
 		vm.actions = {
 			blank: 0, 
 			main: 1,
@@ -209,6 +219,58 @@ angular.module( 'app', [] )
 
 			vm.giftCardBought = true; 
 			vm.numberKeysPressed = [];
+		}
+
+		vm.withdraw = function() {
+
+			var amount = parseInt( vm.getKeypadNumbersAsString() );
+
+			vm.numberKeysPressed = []; 
+
+			if( amount > bank.customers[ vm.currentCustomer ].accounts[0].balance ) {
+
+				vm.money.noFunds = true; 
+				return; 
+			}
+
+			var oneThousand = Math.floor( amount / 1000 ); 
+			if( oneThousand ) amount -= oneThousand * 1000;
+
+			var fiveHundred = Math.floor( amount / 500 ); 
+			if( fiveHundred ) amount -= fiveHundred * 500; 
+
+			var twoHundred = Math.floor( amount / 200 ); 
+			if( twoHundred ) amount -= twoHundred * 200; 
+			
+			var oneHundred = Math.floor( amount / 100 ); 
+			if( oneHundred ) amount -= oneHundred * 100;
+
+			var fifty = Math.floor( amount / 50 ); 
+			if( fifty ) amount -= fifty * 50; 
+
+			if( amount ) {
+				vm.money.invalid = true; 
+				return; 
+			} 
+
+			vm.money.invalid = false; 
+
+			for( var i = 0; i < oneThousand; i++ ) {
+				vm.money.oneThousand.push( true ); 
+			}
+			for( var i = 0; i < fiveHundred; i++ ) {
+				vm.money.fiveHundred.push( true ); 
+			}
+			for( var i = 0; i < twoHundred; i++ ) {
+				vm.money.twoHundred.push( true ); 
+			}
+			for( var i = 0; i < oneHundred; i++ ) {
+				vm.money.oneHundred.push( true ); 
+			}
+			for( var i = 0; i < fifty; i++ ) {
+				vm.money.fifty.push( true ); 
+			}
+
 		}
 
 		vm.back = function() {

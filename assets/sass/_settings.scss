@@ -17,7 +17,13 @@ $colors: (
     'keypad-confirm': #46c67B,
     'keypad-cancel': #e24D57,
     'keypad-highlight': #8f9dac,
-    'card': #003171
+    'card': #003171, 
+    'money-50': #4DAF7C, 
+    'money-100': #DB5A7e, 
+    'money-200': #59ABE3, 
+    'money-500': #F3C13A, 
+    'money-1000': #8D608C, 
+    'money-security': #D2D7D3
 );
 
 $layout: (
@@ -34,6 +40,10 @@ $layout: (
     'keypad-key-size': 40px,
     'keypad-spacing': 7px,
     'card-height': 120px, 
-    'card-width': 200px
-
+    'card-width': 200px, 
+    'money-height': 180px, 
+    'money-width': 380px, 
+    'money-spacing': 15px, 
+    'money-left': 110px,
+    'money-security-width': 35px
 );

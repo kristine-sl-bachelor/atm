@@ -25,35 +25,100 @@
                         <div class = 'Screen-start' ng-show = ' atm.currentAction == atm.actions.main '>
                             <div class = 'Screen-start-description'>
                                 {{ atm.onScreenText }}
-                                <div class="Screen-start-eject" ng-class = "{ 'not-ejectable': ! atm.interactive }" ng-click = 'atm.ejectCard()'>
+                                <div class="Screen-start-eject Screen-button" ng-class = "{ 'not-ejectable': ! atm.interactive }" ng-click = 'atm.ejectCard()'>
                                     <span class = "Screen-start-eject-icon fa fa-credit-card-alt"></span>
                                     Eject card
                                 </div>
                             </div>
                             <div class="Screen-start-menu">
-                                <div class='Screen-start-menu-item' ng-click = ' atm.cancelPayment() '>Cancel payment</div>
-                                <div class='Screen-start-menu-item' ng-click = ' atm.buyVisaGiftCard() '>Buy visa gift card</div>
-                                <div class='Screen-start-menu-item' ng-click = ' atm.changeInfo() '>Change info</div>
-                                <div class='Screen-start-menu-item' ng-click = ' atm.newCard() '>New card  </div>
-                                <div class='Screen-start-menu-item' ng-click = ' atm.payBill() '>Pay a bill</div>
-                                <div class='Screen-start-menu-item' ng-click = ' atm.withdrawCash() '>Withdraw cash</div>
-                                <div class='Screen-start-menu-item' ng-click = ' atm.transferCash() '>Transfer cash</div>
+                                <div class='Screen-start-menu-item Screen-button' ng-click = ' atm.cancelPayment() '>Cancel payment</div>
+                                <div class='Screen-start-menu-item Screen-button' ng-click = ' atm.buyVisaGiftCard() '>Buy visa gift card</div>
+                                <div class='Screen-start-menu-item Screen-button' ng-click = ' atm.changeInfo() '>Change info</div>
+                                <div class='Screen-start-menu-item Screen-button' ng-click = ' atm.newCard() '>New card  </div>
+                                <div class='Screen-start-menu-item Screen-button' ng-click = ' atm.payBill() '>Pay a bill</div>
+                                <div class='Screen-start-menu-item Screen-button' ng-click = ' atm.withdrawCash() '>Withdraw cash</div>
+                                <div class='Screen-start-menu-item Screen-button' ng-click = ' atm.transferCash() '>Transfer cash</div>
                             </div>
                         </div>
                         <div class="Screen-cancelPayment" ng-show = 'atm.currentAction == atm.actions.cancelPayment'>
-                            <div class="Screen-cancelPayment-header">Cancel payment</div>
+                            <div class="Screen-header">Cancel payment</div>
                             <div class="Screen-cancelPayment-noPayments" ng-show = 'atm.payments.length == 0'>No payments found</div>
-                            <div class="Screen-cancelPayment-payment" ng-repeat = 'payment in atm.payments'>
-                                <div class="Screen-cancelPayment-payment-accounts">
-                                    <div>To: {{ payment.to }}</div>
-                                    <div>From: {{ payment.from }}</div>
-                                </div>
-                                <div class = 'Screen-cancelPayment-payment-amount'>{{ payment.amount }},- NOK</div>
-                                <div class = 'Screen-cancelPayment-payment-cancel'>
-                                    <div class = 'fa fa-times'></div>
+                            <div class="Screen-cancelPayment-payments">
+                                <div class="Screen-cancelPayment-payments-item" ng-repeat = 'payment in atm.payments'>
+                                    <div class="Screen-cancelPayment-payments-item-accounts">
+                                        <div>To: {{ payment.to }}</div>
+                                        <div>From: {{ payment.from }}</div>
+                                    </div>
+                                    <div class = 'Screen-cancelPayment-payments-item-amount'>{{ payment.amount }},- NOK</div>
+                                    <div class = 'Screen-cancelPayment-payments-item-cancel' ng-click = "atm.confirm(payment, atm.deletePayment)">
+                                        <div class = 'fa fa-times'></div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="Screen-back" ng-click = 'atm.currentAction = atm.actions.main'>Back</div>
+                            <div class="Screen-button Screen-button--back" ng-click = 'atm.back()'>
+                                Back
+                                <div class="fa fa-caret-right"></div>
+                            </div>
+                        </div>
+                        <div class="Screen-giftCard" ng-show = 'atm.currentAction == atm.actions.buyVisaGiftCard'>
+                            <div class="Screen-header">Buy VISA gift card</div>
+                            <div class="Screen-giftCard-buy" ng-hide = ' atm.giftCardBought '>
+                                <div class="Screen-giftCard-description">Gift card will be sent to your registerred address</div>
+                                <div class="Screen-giftCard-details">
+                                    <div>Amount:</div>
+                                    <div class="Screen-giftCard-amount">{{ atm.getKeypadNumbersAsString() }}</div>
+                                    <div class="Screen-giftCard-confirm Screen-button" ng-click = 'atm.confirm( atm.orderGiftCard )' ng-show = 'atm.numberKeysPressed.length > 0'>Confirm</div>
+                                </div>
+                                <div class="Screen-giftCard-info">Enter amount using keypad</div>
+                            </div>
+                            <div class="Screen-giftCard-bought" ng-show = 'atm.giftCardBought'>
+                                <div class = 'Screen-giftCard-bought-info' >Thank you for ordering one of our gift cards.</div>
+                                <div class = 'Screen-giftCard-bought-info' >Your gift card should arrive at your registerred address in 1-4 days.</div>
+                                <div class = 'Screen-giftCard-bought-repeat Screen-button' ng-click = ' atm.giftCardBought = false '>Order another gift card</div>
+                            </div>
+                            <div class="Screen-button Screen-button--back" ng-click = 'atm.back()'>
+                                Back
+                                <div class="fa fa-caret-right"></div>
+                            </div>
+                        </div>
+                        <div class = 'Screen-changeInfo' ng-show = 'atm.currentAction == atm.actions.changeInfo' >
+                            <div class="Screen-header">Change your personal info here</div>
+                            <div class="Screen-changeInfo-item">
+                                <div class = 'Screen-changeInfo-label' >Name:</div>
+                                <div class="Screen-changeInfo-info">{{ atm.getCustomer().name }}</div>
+                                <div class="Screen-changeInfo-change">Change</div> 
+                            </div>
+                            <div class="Screen-changeInfo-item">
+                                <div class = 'Screen-changeInfo-label' >Address:</div>
+                                <div class="Screen-changeInfo-info">{{ atm.getCustomer().address }}</div>
+                                <div class="Screen-changeInfo-change">Change</div>
+                            </div>
+                            <div class="Screen-changeInfo-item">
+                                <div class = 'Screen-changeInfo-label' >Postcode:</div>
+                                <div class="Screen-changeInfo-info">{{ atm.getCustomer().postcode }}</div>
+                                <div class="Screen-changeInfo-change">Change</div>
+                            </div>
+                            <div class="Screen-changeInfo-item">
+                                <div class = 'Screen-changeInfo-label' >Email:</div>
+                                <div class="Screen-changeInfo-info">{{ atm.getCustomer().email }}</div>
+                                <div class="Screen-changeInfo-change">Change</div>
+                            </div>
+                            <div class="Screen-changeInfo-item">
+                                <div class = 'Screen-changeInfo-label' >Phone:</div>
+                                <div class="Screen-changeInfo-info">{{ atm.getCustomer().phone }}</div>
+                                <div class="Screen-changeInfo-change">Change</div>
+                            </div>
+                            <div class="Screen-button Screen-button--back" ng-click = 'atm.back()'>
+                                Back
+                                <div class="fa fa-caret-right"></div>
+                            </div>
+                        </div>
+                        <div class="Screen-confirm" ng-show = 'atm.currentAction == atm.actions.confirm'>
+                            <div class="Screen-confirm-description">Are you sure?</div>
+                            <div class="Screen-confirm-item-wrapper">
+                                <div class = 'Screen-confirm-item Screen-confirm-item--confirm' ng-click = ' atm.confirmed() '>Confirm</div>
+                                <div class = 'Screen-confirm-item Screen-confirm-item--cancel' ng-click = 'atm.cancel() '>Cancel</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,15 +132,15 @@
                 <div class = 'Atm-keypad'>
                     <div class = 'Keypad'>
                         <div class = 'Keypad-numeric'>
-                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 1 ) '>1</div>
-                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 2 ) '>2</div>
-                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 3 ) '>3</div>
-                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 4 ) '>4</div>
-                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 5 ) '>5</div>
-                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 6 ) '>6</div>
-                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 7 ) '>7</div>
-                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 8 ) '>8</div>
-                            <div class = 'Keypad-key' ng-click = ' atm.numberKey( 9 ) '>9</div>
+                            <div class = 'Keypad-key' ng-click = ' atm.addNumberKey( 1 ) '>1</div>
+                            <div class = 'Keypad-key' ng-click = ' atm.addNumberKey( 2 ) '>2</div>
+                            <div class = 'Keypad-key' ng-click = ' atm.addNumberKey( 3 ) '>3</div>
+                            <div class = 'Keypad-key' ng-click = ' atm.addNumberKey( 4 ) '>4</div>
+                            <div class = 'Keypad-key' ng-click = ' atm.addNumberKey( 5 ) '>5</div>
+                            <div class = 'Keypad-key' ng-click = ' atm.addNumberKey( 6 ) '>6</div>
+                            <div class = 'Keypad-key' ng-click = ' atm.addNumberKey( 7 ) '>7</div>
+                            <div class = 'Keypad-key' ng-click = ' atm.addNumberKey( 8 ) '>8</div>
+                            <div class = 'Keypad-key' ng-click = ' atm.addNumberKey( 9 ) '>9</div>
                         </div>
                         <div class = 'Keypad-confirmation'>
                             <div class = 'Keypad-key Keypad-key--confirm'><span class = 'fa fa-check'></span></div>

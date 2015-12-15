@@ -120,11 +120,9 @@
             justify-content: center; 
             position: absolute; 
             height: 30px; 
-            background: map-get( $colors, 'screen' ); 
             bottom: 30px; 
             font-size: 14px; 
             text-transform: uppercase; 
-            cursor: pointer;
             padding: 10px; 
 
             &-icon {
@@ -153,33 +151,21 @@
             &-item {
                 height: 50px; 
                 width: 100%; 
-                background: map-get( $colors, 'screen' ); 
-                /**border: 10px solid map-get( $colors, 'screen' );**/
                 margin: 5px 0; 
                 display: flex; 
                 justify-content: center;
                 text-transform: uppercase; 
                 align-items: center;
-                cursor: pointer;
-
-                &:hover {
-                    background: map-get( $colors, 'screen-highlight' );   
-                }
             }
         }
     }
 
     &-cancelPayment {
 
-        padding: 20px; 
+        padding: map-get( $layout, 'screen-spacing' ); 
         position: relative; 
         height: 100%; 
-
-        &-header {
-            text-align: center; 
-            font-weight: 600; 
-            margin-bottom: 30px; 
-        }
+        overflow: hidden; 
 
         &-noPayments {
             height: 90%; 
@@ -188,31 +174,205 @@
             align-items: center;  
         }
 
-        &-payment {
-            background: map-get( $colors, 'screen' ); 
-            margin: 10px; 
-            padding: 10px; 
-            display: flex;
-            align-items: center; 
+        &-payments {
 
-            &-accounts {
+            overflow: hidden; 
+            height: 220px;
+            overflow-y: scroll;
+
+            &-item {
+                background: map-get( $colors, 'screen' ); 
                 margin: 10px; 
-                width: 200px; 
-            }
+                padding: 10px; 
+                display: flex;
+                align-items: center; 
+                position: relative; 
 
-            &-amount {
-                width: 200px;
-                display: flex; 
-                justify-content: center; 
-                align-items: center;   
-            }
-
-            &-cancel {
-                font-size: 22px; 
-
-                &:hover {
-                    color: map-get( $colors, 'keypad-cancel' ); 
+                &-accounts {
+                    margin: 10px; 
+                    width: 200px; 
                 }
+
+                &-amount {
+                    width: 180px;
+                    display: flex; 
+                    justify-content: center; 
+                    align-items: center;   
+                }
+
+                &-cancel {
+                    font-size: 22px; 
+                    width: 40px;
+                    height: 40px;  
+                    padding-top: 5px; 
+                    cursor: pointer; 
+
+                    &:hover {
+                        color: map-get( $colors, 'keypad-cancel' ); 
+                    }
+                }
+            }
+        }
+    }  
+
+    &-giftCard {
+        padding: map-get( $layout, 'screen-spacing' ); 
+        height: 100%; 
+        position: relative; 
+
+        .Screen-header {
+            margin-bottom: 30px; 
+        }
+
+        &-description {
+            font-weight: 200px; 
+            text-align: center; 
+            margin-top: 20px; 
+            color: map-get( $colors, 'screen-text-shade' ); 
+        }
+
+        &-details {
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 40px 0; 
+        }
+
+        &-amount {
+            border-bottom: 1px solid map-get( $colors, 'screen-highlight' ); 
+            width: 150px; 
+            height: 30px; 
+            margin: map-get( $layout, 'screen-spacing' );
+            text-align: center; 
+            font-size: 20px; 
+        }
+
+        &-confirm {
+            background: map-get( $colors, keypad-confirm ); 
+            padding: 10px; 
+            cursor: pointer;
+        }
+
+        &-info {
+            color: map-get( $colors, 'screen-text-shade' ); 
+            text-align: center; 
+        }
+
+        &-bought {
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            flex-direction: column; 
+            text-align: center; 
+
+            &-info {
+                padding: 10px; 
+                font-weight: 200; 
+            }
+
+            &-repeat {
+                padding: 15px; 
+                margin-top: 20px; 
+            }
+        }
+    }
+
+    &-changeInfo {
+        padding: map-get( $layout, 'screen-spacing' ); 
+        display: flex; 
+        flex-direction: column; 
+        justify-content: center;
+        align-items: center;  
+        position: relative; 
+        height: 100%; 
+
+        &-item {
+            display: flex; 
+            margin: 5px; 
+        }
+
+        &-label {
+            display: flex; 
+            align-items: center; 
+            color: map-get( $colors, 'screen-text-shade' );
+            width: 100px; 
+        }
+
+        &-info {
+            display: flex; 
+            align-items: center; 
+            padding: 5px; 
+            width: 200px; 
+        }
+
+        &-change {
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 5px 10px; 
+        }
+    }
+
+    &-header {
+        text-align: center; 
+        font-weight: 600; 
+        margin-bottom: 10px; 
+    } 
+
+    &-button {
+        background: map-get( $colors, 'screen' ); 
+        cursor: pointer; 
+
+        &:hover {
+            background: map-get( $colors, 'screen-highlight' ); 
+        }
+
+        &--back {
+            padding: 5px 10px;
+            bottom: map-get( $layout, 'screen-spacing' ); 
+            right: map-get( $layout, 'screen-spacing' ) + 10px; 
+            position: absolute;
+
+            .fa {
+                margin-left: 5px; 
+            }
+        }
+    }
+
+    &-confirm {
+        height: 100%; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center;
+        flex-direction: column; 
+
+        &-description {
+
+            font-weight: 600; 
+            font-size: 18px; 
+        }
+
+        &-item {
+            width: 150px; 
+            height: 70px; 
+            margin: 20px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-weight: 600; 
+            font-size: 20px; 
+            cursor: pointer; 
+
+            &--confirm {
+                background: map-get( $colors, 'keypad-confirm' ); 
+            }
+
+            &--cancel {
+                background: map-get( $colors, 'keypad-cancel' );
+            }
+
+            &-wrapper {
+                display: flex; 
             }
         }
     }
@@ -322,7 +482,7 @@
 .Card {
     position: absolute;
     right: 0;
-    transform: translate( -10px, 80px );
+    transform: translate( -10px, 60px );
     transform-origin: 50% 50%;
     height: map-get( $layout, 'card-height' ); 
     width: map-get( $layout, 'card-width' );  

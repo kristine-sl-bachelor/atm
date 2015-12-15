@@ -1,12 +1,17 @@
 angular.module( 'app', [] )
 
-	.controller( 'AtmController', function( $timeout ) {
+	.controller( 'AtmController', function( $timeout, $log, $q ) {
 
 		var vm = this; 
 
 		var bank = {
-			customers: [ { 
-				name: 'Saint Nick', 
+			customers: [ {
+				name: 'Saint Nick',
+				address: 'North pole 1', 
+				postcode: '0001', 
+				email: 'santa@claus.com', 
+				phone: '12345678', 
+
 				cards: [ 
 					{
 						number: '1234 1234 1234 1234', 
@@ -38,32 +43,84 @@ angular.module( 'app', [] )
 						from: '1201.13.14151', 
 						to: '1201.13.14152', 
 						amount: 123.45
+					},
+					{
+						date: new Date(),
+						from: '1201.13.14151', 
+						to: '1201.13.14152', 
+						amount: 123.45
 					}
 				]
 			} ]
 		}
 
 		vm.actions = {
-			main: 0,
-			cancelPayment: 1, 
-			buyVisaGiftCard: 2,
-			changeInfo: 3,
-			newCard: 4,
-			payBill: 5,
-			withdrawCash: 6,
-			transferCash: 7
+			blank: 0, 
+			main: 1,
+			cancelPayment: 2, 
+			buyVisaGiftCard: 3,
+			changeInfo: 4,
+			newCard: 5,
+			payBill: 6,
+			withdrawCash: 7,
+			transferCash: 8, 
+			confirm: 9
 		}
 
 		vm.currentAction = vm.actions.main; 
-		// vm.currentCustomer = 0; 
-		// vm.payments = bank.customers[ vm.currentCustomer ].payments;
 
 		vm.interactive = false;
 		vm.cardEjected = false;
 		vm.cardTaken = false;  
 
+		vm.reset = function() {
+
+			vm.giftCardBought = false; 
+			vm.numberKeysPressed = []; 
+		}
+
+		vm.reset(); 
+
 		var static = "Please insert card";
 		vm.onScreenText = static;
+
+
+		vm.addNumberKey = function( number ) {
+			
+			if( vm.currentAction != vm.actions.main || vm.currentAction != vm.actions.blank ) {
+
+				vm.numberKeysPressed.push( number );
+			}
+		}
+
+		vm.getKeypadNumbersAsString = function() {
+
+			var output = ''; 
+
+			for( var i = 0; i < vm.numberKeysPressed.length; i++ ) {
+
+				output += vm.numberKeysPressed[i]; 
+			}
+
+			return output; 
+		}
+
+		vm.confirm = function() {
+			vm.confirmFunc = arguments[  arguments.length - 1 ]; 
+			vm.confirmArgs = arguments;
+			vm.previousAction = vm.currentAction; 
+			vm.currentAction = vm.actions.confirm; 
+		}
+
+		vm.confirmed = function() {
+			if ( ! vm.confirmFunc || ! vm.confirmArgs ) return;
+			vm.confirmFunc.apply( this, vm.confirmArgs );
+			vm.currentAction = vm.previousAction; 
+		}
+
+		vm.cancel = function() {
+			vm.currentAction = vm.previousAction; 
+		}
 
 		vm.insertCard = function() {
 
@@ -102,9 +159,8 @@ angular.module( 'app', [] )
 			vm.onScreenText = static; 
 		}
 
-		vm.numberKey = function( number ) {
-
-			vm.onScreenText = 'The number is: ' + number; 
+		vm.numberKey = function( number, func ) {
+			func.apply( this, arguments ); 
 		}
 
 		vm.cancelPayment = function() {
@@ -143,6 +199,28 @@ angular.module( 'app', [] )
 			vm.currentAction = vm.actions.transferCash; 
 		}
 
+		vm.deletePayment = function ( payment ) {
+
+			var index = vm.payments.indexOf( payment ); 
+			vm.payments.splice( index, 1 ); 
+		}
+
+		vm.orderGiftCard = function() {
+
+			vm.giftCardBought = true; 
+			vm.numberKeysPressed = [];
+		}
+
+		vm.back = function() {
+
+			vm.currentAction = vm.actions.main; 
+			vm.reset(); 
+		}
+
+		vm.getCustomer = function() {
+
+			return bank.customers[ vm.currentCustomer ];
+		}
 	} )
 	
 	.controller( 'ReceiptsController', function( $timeout ) {

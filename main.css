@@ -118,11 +118,9 @@ h1 {
       justify-content: center;
       position: absolute;
       height: 30px;
-      background: #3498db;
       bottom: 30px;
       font-size: 14px;
       text-transform: uppercase;
-      cursor: pointer;
       padding: 10px; }
       .Screen-start-eject-icon {
         margin-right: 10px; }
@@ -144,47 +142,157 @@ h1 {
       .Screen-start-menu-item {
         height: 50px;
         width: 100%;
-        background: #3498db;
-        /**border: 10px solid map-get( $colors, 'screen' );**/
         margin: 5px 0;
         display: flex;
         justify-content: center;
         text-transform: uppercase;
-        align-items: center;
-        cursor: pointer; }
-        .Screen-start-menu-item:hover {
-          background: #59abe3; }
+        align-items: center; }
   .Screen-cancelPayment {
     padding: 20px;
     position: relative;
-    height: 100%; }
-    .Screen-cancelPayment-header {
-      text-align: center;
-      font-weight: 600;
-      margin-bottom: 30px; }
+    height: 100%;
+    overflow: hidden; }
     .Screen-cancelPayment-noPayments {
       height: 90%;
       display: flex;
       justify-content: center;
       align-items: center; }
-    .Screen-cancelPayment-payment {
-      background: #3498db;
-      margin: 10px;
-      padding: 10px;
-      display: flex;
-      align-items: center; }
-      .Screen-cancelPayment-payment-accounts {
+    .Screen-cancelPayment-payments {
+      overflow: hidden;
+      height: 220px;
+      overflow-y: scroll; }
+      .Screen-cancelPayment-payments-item {
+        background: #3498db;
         margin: 10px;
-        width: 200px; }
-      .Screen-cancelPayment-payment-amount {
-        width: 200px;
+        padding: 10px;
         display: flex;
-        justify-content: center;
-        align-items: center; }
-      .Screen-cancelPayment-payment-cancel {
-        font-size: 22px; }
-        .Screen-cancelPayment-payment-cancel:hover {
-          color: #e24D57; }
+        align-items: center;
+        position: relative; }
+        .Screen-cancelPayment-payments-item-accounts {
+          margin: 10px;
+          width: 200px; }
+        .Screen-cancelPayment-payments-item-amount {
+          width: 180px;
+          display: flex;
+          justify-content: center;
+          align-items: center; }
+        .Screen-cancelPayment-payments-item-cancel {
+          font-size: 22px;
+          width: 40px;
+          height: 40px;
+          padding-top: 5px;
+          cursor: pointer; }
+          .Screen-cancelPayment-payments-item-cancel:hover {
+            color: #e24D57; }
+  .Screen-giftCard {
+    padding: 20px;
+    height: 100%;
+    position: relative; }
+    .Screen-giftCard .Screen-header {
+      margin-bottom: 30px; }
+    .Screen-giftCard-description {
+      font-weight: 200px;
+      text-align: center;
+      margin-top: 20px;
+      color: #89d4ff; }
+    .Screen-giftCard-details {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 0; }
+    .Screen-giftCard-amount {
+      border-bottom: 1px solid #59abe3;
+      width: 150px;
+      height: 30px;
+      margin: 20px;
+      text-align: center;
+      font-size: 20px; }
+    .Screen-giftCard-confirm {
+      background: #46c67B;
+      padding: 10px;
+      cursor: pointer; }
+    .Screen-giftCard-info {
+      color: #89d4ff;
+      text-align: center; }
+    .Screen-giftCard-bought {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center; }
+      .Screen-giftCard-bought-info {
+        padding: 10px;
+        font-weight: 200; }
+      .Screen-giftCard-bought-repeat {
+        padding: 15px;
+        margin-top: 20px; }
+  .Screen-changeInfo {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100%; }
+    .Screen-changeInfo-item {
+      display: flex;
+      margin: 5px; }
+    .Screen-changeInfo-label {
+      display: flex;
+      align-items: center;
+      color: #89d4ff;
+      width: 100px; }
+    .Screen-changeInfo-info {
+      display: flex;
+      align-items: center;
+      padding: 5px;
+      width: 200px; }
+    .Screen-changeInfo-change {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px 10px; }
+  .Screen-header {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 10px; }
+  .Screen-button {
+    background: #3498db;
+    cursor: pointer; }
+    .Screen-button:hover {
+      background: #59abe3; }
+    .Screen-button--back {
+      padding: 5px 10px;
+      bottom: 20px;
+      right: 30px;
+      position: absolute; }
+      .Screen-button--back .fa {
+        margin-left: 5px; }
+  .Screen-confirm {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; }
+    .Screen-confirm-description {
+      font-weight: 600;
+      font-size: 18px; }
+    .Screen-confirm-item {
+      width: 150px;
+      height: 70px;
+      margin: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 600;
+      font-size: 20px;
+      cursor: pointer; }
+      .Screen-confirm-item--confirm {
+        background: #46c67B; }
+      .Screen-confirm-item--cancel {
+        background: #e24D57; }
+      .Screen-confirm-item-wrapper {
+        display: flex; }
 
 .Keypad {
   height: 100%;
@@ -273,7 +381,7 @@ h1 {
 .Card {
   position: absolute;
   right: 0;
-  transform: translate(-10px, 80px);
+  transform: translate(-10px, 60px);
   transform-origin: 50% 50%;
   height: 120px;
   width: 200px;

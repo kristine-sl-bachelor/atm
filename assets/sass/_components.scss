@@ -86,6 +86,34 @@
     color: map-get( $colors, 'screen-text' ); 
     font-weight: 400;
 
+    &-pin {
+        padding: map-get( $layout, 'screen-spacing' );
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        flex-direction: column; 
+        height: 100%; 
+
+        &-wrapper {
+            height: 100%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
+
+        &-item {
+            margin: 20px; 
+            background: map-get( $colors, 'screen' );
+            font-size: 50px;  
+            width: 60px; 
+            height: 60px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding-top: 20px; 
+        }
+    }
+
     &.is-interactive {
         .Screen-start-description {
             /**margin-right: 100% * ( 1 - map-get( $constants, 'golden-ratio' ) );**/

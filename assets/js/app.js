@@ -74,10 +74,12 @@ angular.module( 'app', [] )
 			payBill: 6,
 			withdrawCash: 7,
 			transferCash: 8, 
-			confirm: 9
+			confirm: 9, 
+			pin: 10
 		}
 
 		vm.currentAction = vm.actions.main; 
+		vm.currentCustomer = 0; 
 
 		vm.interactive = false;
 		vm.cardEjected = false;
@@ -100,6 +102,19 @@ angular.module( 'app', [] )
 			if( vm.currentAction != vm.actions.main || vm.currentAction != vm.actions.blank ) {
 
 				vm.numberKeysPressed.push( number );
+			}
+
+			if( vm.currentAction == vm.actions.pin ) {
+
+				if( vm.numberKeysPressed.length == 4) {
+
+					$timeout( function() {
+						vm.currentAction = vm.actions.main; 
+						vm.interactive = true;
+						vm.onScreenText = "What do you want to do?";
+						vm.reset();   
+					}, 400 ); 
+				}
 			}
 		}
 
@@ -142,8 +157,7 @@ angular.module( 'app', [] )
 				vm.cardTaken = false; 
 
 				$timeout( function() {
-					vm.interactive = true;
-					vm.onScreenText = "What do you want to do?"; 
+					vm.currentAction = vm.actions.pin;  
 				}, 1700 ); 
 			}
 		}
@@ -224,8 +238,10 @@ angular.module( 'app', [] )
 		vm.withdraw = function() {
 
 			vm.money.invalid = false; 
+			vm.money.noFunds = false; 
 
 			var amount = parseInt( vm.getKeypadNumbersAsString() );
+			var rest = amount; 
 
 			vm.numberKeysPressed = []; 
 
@@ -235,25 +251,27 @@ angular.module( 'app', [] )
 				return; 
 			}
 
-			var oneThousand = Math.floor( amount / 1000 ); 
-			if( oneThousand ) amount -= oneThousand * 1000;
+			var oneThousand = Math.floor( rest / 1000 ); 
+			if( oneThousand ) rest -= oneThousand * 1000;
 
-			var fiveHundred = Math.floor( amount / 500 ); 
-			if( fiveHundred ) amount -= fiveHundred * 500; 
+			var fiveHundred = Math.floor( rest / 500 ); 
+			if( fiveHundred ) rest -= fiveHundred * 500; 
 
-			var twoHundred = Math.floor( amount / 200 ); 
-			if( twoHundred ) amount -= twoHundred * 200; 
+			var twoHundred = Math.floor( rest / 200 ); 
+			if( twoHundred ) rest -= twoHundred * 200; 
 			
-			var oneHundred = Math.floor( amount / 100 ); 
-			if( oneHundred ) amount -= oneHundred * 100;
+			var oneHundred = Math.floor( rest / 100 ); 
+			if( oneHundred ) rest -= oneHundred * 100;
 
-			var fifty = Math.floor( amount / 50 ); 
-			if( fifty ) amount -= fifty * 50; 
+			var fifty = Math.floor( rest / 50 ); 
+			if( fifty ) rest -= fifty * 50; 
 
-			if( amount ) {
+			if( rest ) {
 				vm.money.invalid = true; 
 				return; 
 			} 
+
+			bank.customers[ vm.currentCustomer ].accounts[0].balance -= amount;  
 
 			for( var i = 0; i < oneThousand; i++ ) {
 				vm.money.oneThousand.push( true ); 

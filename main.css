@@ -93,6 +93,28 @@ h1 {
   background-color: #2980b9;
   color: white;
   font-weight: 400; }
+  .Screen-pin {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%; }
+    .Screen-pin-wrapper {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+    .Screen-pin-item {
+      margin: 20px;
+      background: #3498db;
+      font-size: 50px;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 20px; }
   .Screen.is-interactive .Screen-start-description {
     /**margin-right: 100% * ( 1 - map-get( $constants, 'golden-ratio' ) );**/
     margin-right: 50%; }
@@ -485,7 +507,8 @@ h1 {
   justify-content: flex-end;
   height: 100%;
   top: 0;
-  position: absolute; }
+  position: absolute;
+  right: 0; }
   .Money-wrapper {
     display: flex;
     flex-direction: column-reverse;

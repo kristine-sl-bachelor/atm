@@ -22,6 +22,23 @@
             <div class = 'Atm-output'>
                 <div class = 'Atm-screen'>
                     <div class = 'Screen' ng-class = "{ 'is-interactive': atm.interactive }">
+                        <div class="Screen-pin" ng-show = "atm.currentAction == atm.actions.pin">
+                            <div class="Screen-header">Please enter PIN code</div>
+                            <div class="Screen-pin-wrapper">
+                                <div class="Screen-pin-item">
+                                    <div ng-show = "atm.numberKeysPressed.length >= 1">*</div>
+                                </div>
+                                <div class="Screen-pin-item">
+                                    <div ng-show = "atm.numberKeysPressed.length >= 2">*</div>
+                                </div>
+                                <div class="Screen-pin-item">
+                                    <div ng-show = "atm.numberKeysPressed.length >= 3">*</div>
+                                </div>
+                                <div class="Screen-pin-item">
+                                    <div ng-show = "atm.numberKeysPressed.length >= 4">*</div>
+                                </div>
+                            </div>
+                        </div>
                         <div class = 'Screen-start' ng-show = ' atm.currentAction == atm.actions.main '>
                             <div class = 'Screen-start-description'>
                                 {{ atm.onScreenText }}

@@ -223,6 +223,8 @@ angular.module( 'app', [] )
 
 		vm.withdraw = function() {
 
+			vm.money.invalid = false; 
+
 			var amount = parseInt( vm.getKeypadNumbersAsString() );
 
 			vm.numberKeysPressed = []; 
@@ -252,8 +254,6 @@ angular.module( 'app', [] )
 				vm.money.invalid = true; 
 				return; 
 			} 
-
-			vm.money.invalid = false; 
 
 			for( var i = 0; i < oneThousand; i++ ) {
 				vm.money.oneThousand.push( true ); 

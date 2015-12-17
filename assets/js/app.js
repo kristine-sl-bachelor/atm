@@ -29,7 +29,7 @@ angular.module( 'app', [] )
 						name: 'Savings account', 
 						number: '1201.13.14152', 
 						balance: 123456.78
-					} 
+					}
 				], 
 				payments: [
 					{

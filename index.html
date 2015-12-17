@@ -22,6 +22,7 @@
             <div class = 'Atm-output'>
                 <div class = 'Atm-screen'>
                     <div class = 'Screen' ng-class = "{ 'is-interactive': atm.interactive }">
+
                         <div class="Screen-pin" ng-show = "atm.currentAction == atm.actions.pin">
                             <div class="Screen-header">Please enter PIN code</div>
                             <div class="Screen-pin-wrapper">
@@ -41,6 +42,7 @@
                             <div class="Screen-pin-error" ng-show = "atm.wrongPin" >You have entered an incorrect PIN code 3 times</div>
                             <div class="Screen-pin-description" ng-show = "atm.wrongPin" >Your card has been withheld. Please contact your bank.</div>
                         </div>
+
                         <div class = 'Screen-start' ng-show = ' atm.currentAction == atm.actions.main '>
                             <div class = 'Screen-start-description'>
                                 {{ atm.onScreenText }}
@@ -58,6 +60,7 @@
                                 <div class='Screen-start-menu-item Screen-button' ng-click = ' atm.transferCash() '>Transfer cash</div>
                             </div>
                         </div>
+
                         <div class="Screen-cancelPayment" ng-show = 'atm.currentAction == atm.actions.cancelPayment'>
                             <div class="Screen-header">Cancel payment</div>
                             <div class="Screen-cancelPayment-noPayments" ng-show = 'atm.payments.length == 0'>No payments found</div>
@@ -78,6 +81,7 @@
                                 <div class="fa fa-caret-right"></div>
                             </div>
                         </div>
+
                         <div class="Screen-giftCard" ng-show = 'atm.currentAction == atm.actions.buyVisaGiftCard'>
                             <div class="Screen-header">Buy VISA gift card</div>
                             <div class="Screen-giftCard-buy" ng-hide = ' atm.giftCardBought '>
@@ -99,6 +103,7 @@
                                 <div class="fa fa-caret-right"></div>
                             </div>
                         </div>
+
                         <div class="Screen-newCard" ng-show = "atm.currentAction == atm.actions.newCard">
                             <div class="Screen-header">Order new card</div>
                             <div class="Screen-newCard-colors">
@@ -123,6 +128,30 @@
                                 <div class="fa fa-caret-right"></div>
                             </div>
                         </div>
+
+                        <div class="Screen-payBill">
+                            <div class="Screen-header">Pay bill</div>
+                            <div class="Screen-payBill-wrapper">
+                                <div class="Screen-payBill-account Screen-payBill-item">
+                                    <div class="Screen-payBill-label">Account number</div>
+                                    <div class="Screen-input"></div>
+                                </div>
+                                <div class="Screen-payBill-kid Screen-payBill-item">
+                                    <div class="Screen-payBill-label">KID</div>
+                                    <div class="Screen-input"></div>
+                                </div>
+                                <div class="Screen-payBill-amount Screen-payBill-item">
+                                    <div class="Screen-payBill-label">Amount</div>
+                                    <div class="Screen-input"></div>
+                                    <div class="Screen-button Screen-payBill-submit">Submit</div>
+                                </div>
+                                <div class="Screen-button Screen-button--back" ng-click = 'atm.back()'>
+                                    Back
+                                    <div class="fa fa-caret-right"></div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="Screen-withdrawCash" ng-show = 'atm.currentAction == atm.actions.withdrawCash'>
                             <div class="Screen-header">Enter amount you want to withdraw</div>
                             <div class="Screen-withdrawCash-wrapper">

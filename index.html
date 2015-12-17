@@ -99,6 +99,30 @@
                                 <div class="fa fa-caret-right"></div>
                             </div>
                         </div>
+                        <div class="Screen-newCard" ng-show = "atm.currentAction == atm.actions.newCard">
+                            <div class="Screen-header">Order new card</div>
+                            <div class="Screen-newCard-colors">
+                                <div class="Screen-newCard-label">Choose a color:</div>
+                                <div class="Screen-newCard-color Screen-newCard-color--blue"></div>
+                                <div class="Screen-newCard-color Screen-newCard-color--green"></div>
+                                <div class="Screen-newCard-color Screen-newCard-color--yellow"></div>
+                                <div class="Screen-newCard-color Screen-newCard-color--red"></div>
+                                <div class="Screen-newCard-color Screen-newCard-color--white"></div>
+                            </div>
+                            <div class="Screen-newCard-wrapper">
+                                <div class="Screen-newCard-icon-wrapper">
+                                    <div class="Screen-newCard-icon fa fa-credit-card-alt"></div>
+                                </div>
+                                <div class="Screen-newCard-info">
+                                    <div class="Screen-newCard-description">The card will be sent to your registered address in 1-4 days. </div>
+                                    <div class="Screen-newCard-submit Screen-button">Submit</div>
+                                </div>
+                            </div>
+                            <div class="Screen-button Screen-button--back" ng-click = 'atm.back()'>
+                                Back
+                                <div class="fa fa-caret-right"></div>
+                            </div>
+                        </div>
                         <div class="Screen-withdrawCash" ng-show = 'atm.currentAction == atm.actions.withdrawCash'>
                             <div class="Screen-header">Enter amount you want to withdraw</div>
                             <div class="Screen-withdrawCash-wrapper">
@@ -113,7 +137,7 @@
                                 <div class="fa fa-caret-right"></div>
                             </div>
                         </div>
-                        <div class="Screen-transferCash">
+                        <div class="Screen-transferCash" ng-show = "atm.currentAction == atm.actions.transferCash">
                             <div class="Screen-header">Transfer cash between accounts</div>
                             <div class="Screen-transferCash-accounts"> 
                                 <div class="Screen-transferCash-accounts-wrapper">

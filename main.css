@@ -245,6 +245,54 @@ h1 {
       .Screen-giftCard-bought-repeat {
         padding: 15px;
         margin-top: 20px; }
+  .Screen-newCard {
+    padding: 20px;
+    position: relative;
+    height: 100%; }
+    .Screen-newCard-wrapper {
+      display: flex;
+      align-items: center; }
+    .Screen-newCard-icon {
+      font-size: 6em !important;
+      color: #003171;
+      margin-right: 10px;
+      margin-left: 50px; }
+    .Screen-newCard-label {
+      margin-bottom: 10px;
+      margin-right: 10px;
+      font-weight: 600;
+      font-size: 14px; }
+    .Screen-newCard-colors {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px; }
+    .Screen-newCard-color {
+      width: 33px;
+      height: 33px;
+      margin: 7px;
+      cursor: pointer; }
+      .Screen-newCard-color--blue {
+        background: #003171; }
+      .Screen-newCard-color--green {
+        background: #26C281; }
+      .Screen-newCard-color--yellow {
+        background: #F5AB35; }
+      .Screen-newCard-color--red {
+        background: #C91F37; }
+      .Screen-newCard-color--white {
+        background: white; }
+    .Screen-newCard-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center; }
+    .Screen-newCard-description {
+      text-align: center;
+      margin: 30px 0; }
+    .Screen-newCard-submit {
+      width: 76px;
+      padding: 10px;
+      margin-bottom: 30px; }
   .Screen-withdrawCash {
     padding: 20px;
     height: 100%;

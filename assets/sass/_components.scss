@@ -89,7 +89,6 @@
     &-pin {
         padding: map-get( $layout, 'screen-spacing' );
         display: flex; 
-        justify-content: center; 
         align-items: center; 
         flex-direction: column; 
         height: 100%; 
@@ -111,6 +110,15 @@
             justify-content: center; 
             align-items: center; 
             padding-top: 20px; 
+        }
+
+        &-error {
+            border-bottom: 1px solid map-get( $colors, 'keypad-cancel' ); 
+            margin: 15px; 
+        }
+
+        &-description {
+            margin-bottom: 30px; 
         }
     }
 
@@ -296,42 +304,6 @@
         }
     }
 
-    &-changeInfo {
-        padding: map-get( $layout, 'screen-spacing' ); 
-        display: flex; 
-        flex-direction: column; 
-        justify-content: center;
-        align-items: center;  
-        position: relative; 
-        height: 100%; 
-
-        &-item {
-            display: flex; 
-            margin: 5px; 
-        }
-
-        &-label {
-            display: flex; 
-            align-items: center; 
-            color: map-get( $colors, 'screen-text-shade' );
-            width: 100px; 
-        }
-
-        &-info {
-            display: flex; 
-            align-items: center; 
-            padding: 5px; 
-            width: 200px; 
-        }
-
-        &-change {
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            padding: 5px 10px; 
-        }
-    }
-
     &-withdrawCash {
         padding: map-get( $layout, 'screen-spacing' ); 
         height: 100%; 
@@ -363,6 +335,79 @@
 
         &-description {
             font-weight: 200; 
+        }
+    }
+
+    &-transferCash {
+        position: relative; 
+        height: 100%; 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center;
+        padding: map-get( $layout, 'screen-spacing' );
+
+        &-description {
+            color: map-get( $colors, 'screen-text-shade' ); 
+        }
+
+        &-accounts {
+
+            display: flex; 
+
+            &-item {
+                display: flex; 
+                border: 1px solid map-get( $colors, 'screen' ); 
+                align-items: center; 
+                font-size: 12px; 
+                margin: 10px; 
+                padding: 10px; 
+                cursor: pointer; 
+
+                &-wrapper {
+                    overflow: scroll; 
+                    width: 120px; 
+                }
+            }
+
+            .is-selected {
+                background: map-get( $colors, 'screen' ); 
+            }
+
+            .is-inactive {
+                background: map-get( $colors, 'screen-shade' ); 
+                cursor: default; 
+                color: map-get( $colors, 'screen-text-shade' ); 
+            }
+        }
+
+        &-label {
+            width: 70px; 
+            margin-left: 10px; 
+            font-size: 14px; 
+            font-weight: 600; 
+        }
+
+        &-amount {
+            display: flex; 
+            align-items: center;
+        }
+
+        .Screen-input { 
+            border-bottom: 3px solid map-get( $colors, 'screen' );             
+            width: 200px; 
+            height: 25px; 
+            cursor: pointer; 
+            margin: 10px; 
+        }
+
+        .is-active {
+            border-bottom: 1px solid white;
+        }
+
+        &-submit {
+
+            padding: 10px; 
+            margin-top: 10px; 
         }
     }
 

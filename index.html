@@ -38,6 +38,8 @@
                                     <div ng-show = "atm.numberKeysPressed.length >= 4">*</div>
                                 </div>
                             </div>
+                            <div class="Screen-pin-error" ng-show = "atm.wrongPin" >You have entered an incorrect PIN code 3 times</div>
+                            <div class="Screen-pin-description" ng-show = "atm.wrongPin" >Your card has been withheld. Please contact your bank.</div>
                         </div>
                         <div class = 'Screen-start' ng-show = ' atm.currentAction == atm.actions.main '>
                             <div class = 'Screen-start-description'>
@@ -50,8 +52,7 @@
                             <div class="Screen-start-menu">
                                 <div class='Screen-start-menu-item Screen-button' ng-click = ' atm.cancelPayment() '>Cancel payment</div>
                                 <div class='Screen-start-menu-item Screen-button' ng-click = ' atm.buyVisaGiftCard() '>Buy visa gift card</div>
-                                <div class='Screen-start-menu-item Screen-button' ng-click = ' atm.changeInfo() '>Change info</div>
-                                <div class='Screen-start-menu-item Screen-button' ng-click = ' atm.newCard() '>New card  </div>
+                                <div class='Screen-start-menu-item Screen-button' ng-click = ' atm.newCard() '>Order new card  </div>
                                 <div class='Screen-start-menu-item Screen-button' ng-click = ' atm.payBill() '>Pay a bill</div>
                                 <div class='Screen-start-menu-item Screen-button' ng-click = ' atm.withdrawCash() '>Withdraw cash</div>
                                 <div class='Screen-start-menu-item Screen-button' ng-click = ' atm.transferCash() '>Transfer cash</div>
@@ -98,38 +99,6 @@
                                 <div class="fa fa-caret-right"></div>
                             </div>
                         </div>
-                        <div class = 'Screen-changeInfo' ng-show = 'atm.currentAction == atm.actions.changeInfo' >
-                            <div class="Screen-header">Change your personal info here</div>
-                            <div class="Screen-changeInfo-item">
-                                <div class = 'Screen-changeInfo-label' >Name:</div>
-                                <div class="Screen-changeInfo-info">{{ atm.getCustomer().name }}</div>
-                                <div class="Screen-changeInfo-change">Change</div> 
-                            </div>
-                            <div class="Screen-changeInfo-item">
-                                <div class = 'Screen-changeInfo-label' >Address:</div>
-                                <div class="Screen-changeInfo-info">{{ atm.getCustomer().address }}</div>
-                                <div class="Screen-changeInfo-change">Change</div>
-                            </div>
-                            <div class="Screen-changeInfo-item">
-                                <div class = 'Screen-changeInfo-label' >Postcode:</div>
-                                <div class="Screen-changeInfo-info">{{ atm.getCustomer().postcode }}</div>
-                                <div class="Screen-changeInfo-change">Change</div>
-                            </div>
-                            <div class="Screen-changeInfo-item">
-                                <div class = 'Screen-changeInfo-label' >Email:</div>
-                                <div class="Screen-changeInfo-info">{{ atm.getCustomer().email }}</div>
-                                <div class="Screen-changeInfo-change">Change</div>
-                            </div>
-                            <div class="Screen-changeInfo-item">
-                                <div class = 'Screen-changeInfo-label' >Phone:</div>
-                                <div class="Screen-changeInfo-info">{{ atm.getCustomer().phone }}</div>
-                                <div class="Screen-changeInfo-change">Change</div>
-                            </div>
-                            <div class="Screen-button Screen-button--back" ng-click = 'atm.back()'>
-                                Back
-                                <div class="fa fa-caret-right"></div>
-                            </div>
-                        </div>
                         <div class="Screen-withdrawCash" ng-show = 'atm.currentAction == atm.actions.withdrawCash'>
                             <div class="Screen-header">Enter amount you want to withdraw</div>
                             <div class="Screen-withdrawCash-wrapper">
@@ -139,6 +108,40 @@
                             <div class="Screen-withdrawCash-error" ng-show = "atm.money.invalid">Invalid sum, cannot provide entire amount</div>
                             <div class="Screen-withdrawCash-description" ng-show = "atm.money.invalid">Please enter new amount</div>
                             <div class="Screen-withdrawCash-error" ng-show = "atm.money.noFunds">Not enough funds</div>
+                            <div class="Screen-button Screen-button--back" ng-click = 'atm.back()'>
+                                Back
+                                <div class="fa fa-caret-right"></div>
+                            </div>
+                        </div>
+                        <div class="Screen-transferCash">
+                            <div class="Screen-header">Transfer cash between accounts</div>
+                            <div class="Screen-transferCash-accounts"> 
+                                <div class="Screen-transferCash-accounts-wrapper">
+                                    <div class = "Screen-transferCash-label">From</div>
+                                    <div class="Screen-transferCash-accounts-item"  ng-class = " { 'is-selected': atm.transfer.from == $index + 1, 'is-inactive': atm.transfer.to == $index + 1 } " ng-click = "atm.setAccount( 0, $index + 1 )" ng-repeat = "account in atm.getCustomer().accounts">
+                                        <div class="Screen-transferCash-accounts-item-wrapper">
+                                            <div class = "Screen-transferCash-details">{{ account.name }}</div>
+                                            <div class = "Screen-transferCash-details">{{ account.number }}</div> 
+                                        </div>
+                                        <div class = "Screen-transferCash-details  Screen-transferCash-details--balance">{{ account.balance }}</div>
+                                    </div> 
+                                </div> 
+                                <div class="Screen-transferCash-accounts-wrapper">
+                                    <div class = "Screen-transferCash-label">To</div>
+                                    <div class="Screen-transferCash-accounts-item"  ng-class = " { 'is-selected': atm.transfer.to == $index + 1, 'is-inactive': atm.transfer.from == $index + 1 } " ng-click = "atm.setAccount( 1, $index + 1 )" ng-repeat = "account in atm.getCustomer().accounts">
+                                        <div class="Screen-transferCash-accounts-item-wrapper">
+                                            <div class = "Screen-transferCash-details">{{ account.name }}</div>
+                                            <div class = "Screen-transferCash-details">{{ account.number }}</div> 
+                                        </div>
+                                        <div class = "Screen-transferCash-details  Screen-transferCash-details--balance">{{ account.balance }}</div>
+                                    </div> 
+                                </div> 
+                            </div>
+                            <div class="Screen-transferCash-amount">
+                                <div class="Screen-transferCash-label">Amount</div>
+                                <div class="Screen-input" ng-click = 'atm.transfer.currentMode = atm.transfer.modes.amount' ng-class = "{ 'is-active': atm.transfer.currentMode == atm.transfer.modes.amount }">{{ atm.getKeypadNumbersAsString() }}</div>
+                            </div>
+                            <div class="Screen-button Screen-transferCash-submit" ng-click = "atm.transfer()" >Submit</div>
                             <div class="Screen-button Screen-button--back" ng-click = 'atm.back()'>
                                 Back
                                 <div class="fa fa-caret-right"></div>

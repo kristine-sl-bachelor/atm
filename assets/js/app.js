@@ -21,12 +21,12 @@ angular.module( 'app', [] )
 				], 
 				accounts: [ 
 					{
-						name: 'spending account', 
+						name: 'Spending account', 
 						number: '1201.13.14151', 
 						balance: 12345.67
 					}, 
 					{
-						name: 'savings account', 
+						name: 'Savings account', 
 						number: '1201.13.14152', 
 						balance: 123456.78
 					} 
@@ -69,26 +69,36 @@ angular.module( 'app', [] )
 			main: 1,
 			cancelPayment: 2, 
 			buyVisaGiftCard: 3,
-			changeInfo: 4,
-			newCard: 5,
-			payBill: 6,
-			withdrawCash: 7,
-			transferCash: 8, 
-			confirm: 9, 
-			pin: 10
+			newCard: 4,
+			payBill: 5,
+			withdrawCash: 6,
+			transferCash: 7, 
+			confirm: 8, 
+			pin: 9
 		}
 
 		vm.currentAction = vm.actions.main; 
-		vm.currentCustomer = 0; 
+		// vm.currentCustomer = 0; 
 
 		vm.interactive = false;
 		vm.cardEjected = false;
-		vm.cardTaken = false;  
+		vm.cardTaken = false;
 
 		vm.reset = function() {
 
 			vm.giftCardBought = false; 
 			vm.numberKeysPressed = []; 
+			vm.wrongPin = false; 
+
+			vm.transfer = {
+				modes: {
+					to: 1,
+					amount: 3
+				}, 
+				currentMode: 0, 
+				to: '', 
+				amount: ''
+			};
 		}
 
 		vm.reset(); 
@@ -191,36 +201,37 @@ angular.module( 'app', [] )
 
 			vm.payments = bank.customers[ vm.currentCustomer ].payments;
 			vm.currentAction = vm.actions.cancelPayment; 
+			vm.reset(); 
 		}
 
 		vm.buyVisaGiftCard = function() {
 
 			vm.currentAction = vm.actions.buyVisaGiftCard; 
-		}
-
-		vm.changeInfo = function() {
-
-			vm.currentAction = vm.actions.changeInfo; 
+			vm.reset(); 
 		}
 
 		vm.newCard = function() {
 
 			vm.currentAction = vm.actions.newCard; 
+			vm.reset(); 
 		}
 
 		vm.payBill = function() {
 
 			vm.currentAction = vm.actions.payBill; 
+			vm.reset(); 
 		}
 
 		vm.withdrawCash = function() {
 
 			vm.currentAction = vm.actions.withdrawCash; 
+			vm.reset(); 
 		}
 
 		vm.transferCash = function() {
 
 			vm.currentAction = vm.actions.transferCash; 
+			vm.reset(); 
 		}
 
 		vm.deletePayment = function ( payment ) {
@@ -300,6 +311,36 @@ angular.module( 'app', [] )
 		vm.getCustomer = function() {
 
 			return bank.customers[ vm.currentCustomer ];
+		}
+
+		vm.setAccount = function( account, index ) {
+
+			if( account == 0 ) { // From 
+
+				vm.transfer.from = index; 
+				if( vm.transfer.to == index ) vm.transfer.to = ''; 
+
+			} else { // To
+				vm.transfer.to = index; 
+				if( vm.transfer.from == index ) vm.tranfer.from = ''; 
+			}
+		}
+
+		vm.transfer = function() {
+
+			if( vm.transfer.to == '' || vm.transfer.from == '' ) return; 
+			var amount = parseInt( vm.getKeypadNumbersAsString() );
+
+			var from = vm.getCustomer().accounts[ vm.transfer.from - 1 ]; 
+			var to = vm.getCustomer().accounts[ vm.transfer.to - 1 ]; 
+
+			from.balance -= amount; 
+			to.balance += amount; 
+
+			vm.transfer.to = ''; 
+			vm.transfer.from = ''; 
+
+			vm.numberKeysPressed = []; 
 		}
 	} )
 	
